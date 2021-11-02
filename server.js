@@ -1,28 +1,19 @@
-var mongoose = require('mongoose');
+const express =require('express')
+require('dotenv').config({path:'./.env'})
+require('./bd')
+const app = express()
 
-//Connect the .env file with the server file.
-mongoose.connect(process.env.MONGO_URI);
+app.use(express.json())
 
-//For connection with the daatabase.
-const server = '127.0.0.1:27017';
-const database = 'checkpoint_db'; 
-class Database {
-    constructor() {
-        this._connect()
-    }
-    _connect() {
-        mongoose.connect(`mongodb://${server}/${database}`)
-        .then(() => {
-            console.log('Database connection successful')
-        })
-        .catch(err => {
-            console.error('Database connection error')
-        })
-    }
-}
-module.exports = new Database()
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+app.get("/all",(req,res,next)=>{
+    const person=Person.find();
+    res.status(200).json({person})
+})
 
+app.get("/user/:id",(req,res,next)=>{
+    const person= Person.findById(req.params.id)
+    res.status(200)
+})
 
 //Creation of the person with the given prototype.
 let galo=new Person({

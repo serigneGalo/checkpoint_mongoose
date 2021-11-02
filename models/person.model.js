@@ -1,5 +1,4 @@
-let mongoose = require('mongoose');
-let validator = require('validator');
+const mongoose = require('mongoose');
 
 const personSchema = new mongoose.Schema({
     name: {
@@ -13,6 +12,6 @@ const personSchema = new mongoose.Schema({
         default: ["apple"]
     }
 });
-const Person = mongoose.model('Person', personSchema);
-module.exports = Person
+ module.exports = mongoose.model('Person', personSchema);
+
 
